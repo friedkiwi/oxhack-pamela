@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from pam.views import config, devices, update_devices, add_name
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', include('pam.urls')),
+    url(r'^config$', config, name="config" ),
+    url(r'^devices$', devices, name="devices"),
+    url(r'^update_devices$', update_devices, name="update devices"),
+    url(r'^add_name', add_name, name="add name"),
 ]

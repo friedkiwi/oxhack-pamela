@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>Register Name</title>
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+        }
+
+        table {
+            border: 1px grey solid;
+        }
+
+        tr, td, th {
+            border-bottom: 1px grey solid;
+        }
+    </style>
+</head>
+<body>
+    <h1>Register Name</h1>
+
+    {% if not exists %}
+        <p style="color: red;">
+            The supplied MAC address has never been seen in the space.
+        </p>
+    {% endif %}
+
+    {% if form.errors %}
+        <p style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+    {% endif %}
+
+    <form action="" method="post">
+        <table>
+            {{ form.as_table }}
+        </table>
+        {% csrf_token %}
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

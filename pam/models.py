@@ -10,3 +10,8 @@ class Device(models.Model):
     show_in_overview = models.BooleanField(default=True, help_text="Show in animation?")
     currently_in_space = models.BooleanField(default=False, help_text="Currently in the space?", editable=False)
 
+    def __unicode__(self):
+        if self.description == "":
+            return self.mac_address
+        else:
+            return self.description
