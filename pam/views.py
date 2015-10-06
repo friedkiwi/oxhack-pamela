@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseForbidden
 from django.http import HttpResponseRedirect
-from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Device
@@ -10,8 +9,9 @@ from oxpam import settings
 import datetime
 import time
 from .forms import RegisterMacForm
+import random
 
-
+ANIMALS = ["dog","cat","fish","axolotl","dwarf puffer","hedgehog","ferret","chinchilla","mouse","rabbit","hamster","gecko","spider","bearded dragon","tortoise","aye aye","jelly fish","ant","centipede","stick insect","crocodile","aligator","cuttlefish","shark","pigeon","duck","goose","seagull","tuna","lion","tiger","bear","zebra","gazelle","toad","deer","panda","leopard","cheeta","panther","gorilla","chimp","sloth","elephant","camel","horse","lama","emu","wolf","giraffe","rhino","star fish","python","woodpecker","tasmanian devil","koala","lama","chicken","goat","scorpion","bat","mole","raccoon","possum","butterfly","ladybird","salamander","boar","miya cat","wasp","bee"]
 
 # Create your views here.
 
@@ -25,14 +25,21 @@ def devices(request):
 
     returned_list = []
 
+
+
     devices_available = Device.objects.filter(show_in_overview=True, currently_in_space=True)
 
+    if not request.session.__contains__("animal_hash"):
+        request.session["animal_hash"] = {}
+
     for device in devices_available:
+        if not request.session["animal_hash"].__contains__(device.mac_address):
+            request.session["animal_hash"][device.mac_address] = random.choice(ANIMALS)
+
         if device.description != "":
             returned_list.append(device.description)
         else:
-            t = iter(device.mac_address)
-            returned_list.append('-'.join(a+b for a,b in zip(t, t)))
+            returned_list.append(request.session["animal_hash"][device.mac_address])
 
     return HttpResponse(json.dumps(returned_list))
 
