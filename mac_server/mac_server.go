@@ -12,7 +12,8 @@ func crossdomain_handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func find_mac(w http.ResponseWriter, r *http.Request) {
-
+    w.Header().Set("Access-Control-Allow-Origin", "*")
+    w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
 	remote_addr := strings.Split(r.RemoteAddr, ":")
 
 	cmd := exec.Command("arp", "-a")
