@@ -1,4 +1,6 @@
+oxpam/settings.py
 .DS_Store
+*/*.pyc
 *.pyc
 .idea
 *.sqlite3
