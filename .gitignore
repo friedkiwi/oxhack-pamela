@@ -1,3 +1,4 @@
+mac_server/mac_server
 oxpam/settings.py
 .DS_Store
 */*.pyc
