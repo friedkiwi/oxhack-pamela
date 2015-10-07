@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pam',
-    'captcha'
+    'captcha',
+    'space_auth',
 )
 
 MIDDLEWARE_CLASSES = (
